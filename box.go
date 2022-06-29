@@ -21,7 +21,7 @@ func NewBox(shapesCapacity int) *box {
 // returns the error in case it goes out of the shapesCapacity range.
 func (b *box) AddShape(shape Shape) error {
 
-	if len(b.shapes) > b.shapesCapacity {
+	if len(b.shapes) == b.shapesCapacity {
 		return fmt.Errorf("exceeded the number of shaped")
 	}
 	b.shapes = append(b.shapes, shape)
@@ -103,16 +103,17 @@ func (b *box) SumArea() float64 {
 func (b *box) RemoveAllCircles() error {
 
 	var output = make([]Shape, 0)
-	for r, box := range b.shapes {
+	for _, box := range b.shapes {
 
 		_, ok := box.(Circle)
-		if ok {
-			output = removeIndex(b.shapes, r)
+		if !ok {
+			output = append(output, box)
 		}
 
 	}
 
-	if len(output) == 0 {
+	if len(output) == len(b.shapes) {
+
 		return fmt.Errorf("no circle exist")
 	} else {
 		b.shapes = output
