@@ -5,3 +5,13 @@ type Rectangle struct {
 	Height, Weight float64
 }
 
+func (rectangle Rectangle) CalcArea() float64 {
+
+	return rectangle.Weight * rectangle.Height
+}
+
+func (rectangle Rectangle) CalcPerimeter() float64 {
+
+	return 2 * (rectangle.Height + rectangle.Weight)
+
+}
